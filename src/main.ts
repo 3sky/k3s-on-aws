@@ -1,23 +1,19 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { App, Tags } from 'aws-cdk-lib';
+import { k3sStack } from './k3s';
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-
-    // define resources here...
-  }
-}
-
-// for development, use account/region from cdk cli
 const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
+  account: '471112990549',
+  region: 'eu-central-1',
 };
 
 const app = new App();
 
-new MyStack(app, 'k3s-dev', { env: devEnv });
-// new MyStack(app, 'k3s-prod', { env: prodEnv });
+new k3sStack(app, 'dev-k3s',
+  {
+    env: devEnv,
+    stackName: 'dev-k8s',
+  },
 
+);
+Tags.of(app).add('description', 'Testing k3s cluster');
 app.synth();
