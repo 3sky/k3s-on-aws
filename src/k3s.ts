@@ -34,7 +34,7 @@ export class k3sStack extends cdk.Stack {
     baseSecurityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), 'Allow HTTP traffic from anywhere');
     baseSecurityGroup.addIngressRule(ec2.Peer.ipv4(vpc.vpcCidrBlock.toString()), ec2.Port.tcp(6443), 'Allow traffic to master APsh');
     baseSecurityGroup.addIngressRule(ec2.Peer.ipv4('79.184.234.2/32'), ec2.Port.tcp(22), 'Allow SSH traffic from Tailscale Network');
-    baseSecurityGroup.addIngressRule(ec2.Peer.ipv4('79.184.234.2/32'), ec2.Port.tcp(664), 'Allow kubectl traffic from Tailscale Network');
+    baseSecurityGroup.addIngressRule(ec2.Peer.ipv4('79.184.234.2/32'), ec2.Port.tcp(6443), 'Allow kubectl traffic from Tailscale Network');
 
     const awsKeyPair = new ec2.CfnKeyPair(this, 'localkeypair', {
       publicKeyMaterial:
